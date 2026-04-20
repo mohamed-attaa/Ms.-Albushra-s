@@ -595,6 +595,132 @@
     .footer-container { flex-direction: column; text-align: center; }
     .footer-social a { padding: 5px 16px; font-size: 0.8rem; }
   }
+
+  /* ========== GAME MODAL (kindergarten style) ========== */
+  .game-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    animation: fadeOverlay 0.3s ease;
+  }
+  @keyframes fadeOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .modal-container {
+    position: relative;
+    background: #fffef7;
+    max-width: 460px;
+    width: 90%;
+    border-radius: 68px;
+    padding: 1.8rem 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 35px 55px -15px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,200,0.8);
+    border: 3px solid #ffb347;
+    animation: popModal 0.4s cubic-bezier(0.34, 1.3, 0.55, 1);
+    z-index: 10000;
+  }
+  @keyframes popModal {
+    0% { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 22px;
+    background: #ffe1c6;
+    border: none;
+    font-size: 28px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    color: #e63946;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-close:hover {
+    background: #ffb347;
+    color: white;
+    transform: rotate(90deg);
+  }
+  .modal-container h2 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #e65c2e;
+    margin: 0.5rem 0 0.2rem;
+    font-family: 'Kalam', cursive;
+  }
+  .modal-container p {
+    font-size: 1rem;
+    color: #4a5b66;
+    margin-bottom: 1.8rem;
+    font-weight: 500;
+  }
+  .modal-options {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .modal-option {
+    border: none;
+    padding: 16px 12px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: #ffecdd;
+    color: #b64926;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-family: 'Quicksand', sans-serif;
+    border: 2px solid #ffc896;
+  }
+  .modal-option i, .modal-option span {
+    font-size: 1.8rem;
+  }
+  .english-option {
+    background: #c7e9fb;
+    border-color: #6bb5ff;
+    color: #1f6392;
+  }
+  .english-option:hover {
+    background: #a1d4ff;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px -8px rgba(31,99,146,0.3);
+  }
+  .math-option {
+    background: #fee2b5;
+    border-color: #ffa559;
+    color: #aa4e1c;
+  }
+  .math-option:hover {
+    background: #ffd699;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px -8px rgba(170,78,28,0.3);
+  }
 </style>
 </head>
 <body>
@@ -608,12 +734,11 @@
       <p>✨ kinder joy ✨</p>
     </div>
   </div>
-  <!-- Desktop navigation: all point to actual pages (no alerts) -->
+  <!-- Desktop navigation: added "Online Games" link that triggers modal -->
   <nav id="desktopNav">
     <a href="index.html">🏠 Home</a>
     <a href="Worksheets.html">📄 Worksheets</a>
-    <a href="Videos.html">🎥 Videos</a>
-    <a href="Activities.html" class="active">🎮 Activities</a>
+    <a href="#" id="onlineGamesLinkDesktop" class="game-trigger">🎲 Online Games</a>
     <a href="English Flashcards.html">📘 English Flashcards</a>
     <a href="Math Flashcards.html">🧮 Math Flashcards</a>
   </nav>
@@ -623,13 +748,14 @@
   </div>
 </header>
 
-<!-- Mobile menu overlay (fullscreen) - all links point to actual pages -->
+<!-- Mobile menu overlay (fullscreen) - includes "Online Games" trigger -->
 <div class="mobile-nav" id="mobileNavMenu">
   <div class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></div>
   <a href="index.html"><i class="fas fa-home"></i> Home</a>
   <a href="Worksheets.html"><i class="fas fa-book-open"></i> Worksheets</a>
   <a href="Videos.html"><i class="fas fa-video"></i> Videos</a>
   <a href="Activities.html" class="active"><i class="fas fa-gamepad"></i> Activities</a>
+  <a href="#" id="onlineGamesLinkMobile" class="game-trigger"><i class="fas fa-globe"></i> Online Games</a>
   <a href="english-flashcards.html"><i class="fas fa-language"></i> English Flashcards</a>
   <a href="math-flashcards.html"><i class="fas fa-calculator"></i> Math Flashcards</a>
 </div>
@@ -638,66 +764,46 @@
 <section class="hero">
   <div class="hero-content">
     <h1>🎮 Activities & Games</h1>
-    <h2>🌈 Let’s Play, Learn & Grow! 🌈</h2>
+    <h2> 🎮 Let’s Play, Learn & Grow!🏠 </h2>
     <p>Tap, click & explore — joyful learning adventures for little superstars ✨</p>
   </div>
 </section>
 
-<!-- ========== GAMES GRID (20 Interactive Cards - all external wordwall/tinytap) ========== -->
+<!-- ========== GAMES GRID (20 Interactive Cards) ========== -->
 <div class="games-section">
   <div class="heading-wrapper">
-    <div class="section-heading">🎲 20 Playful Learning Games 🎲</div>
+    <div class="section-heading">🎲 Playful Learning Games 🎲</div>
   </div>
   <div class="container">
-    <div class="card c1"><div class="badge">🐝 Z</div><div class="icon">🔤🎯</div><div class="title">Find Letter Z</div><a href="https://wordwall.net/play/110647/485/668" target="_blank">▶ Play Now</a></div>
-    <div class="card c2"><div class="badge">🔊 Z</div><div class="icon">🎧🔤</div><div class="title">Letter Z Sound</div><a href="https://wordwall.net/play/110649/113/874" target="_blank">▶ Play Now</a></div>
-    <div class="card c3"><div class="badge">🧩 Z</div><div class="icon">🔍✨</div><div class="title">Recognize Z</div><a href="https://wordwall.net/play/110648/333/110" target="_blank">▶ Play Now</a></div>
-    <div class="card c4"><div class="badge">🔟</div><div class="icon">🔢🎈</div><div class="title">Hit Number 10</div><a href="https://wordwall.net/play/110651/800/595" target="_blank">▶ Play Now</a></div>
-    <div class="card c5"><div class="badge">📐 AAB</div><div class="icon">🧩🟦🟦</div><div class="title">AAB Pattern</div><a href="https://wordwall.net/play/110653/787/566" target="_blank">▶ Play Now</a></div>
-    <div class="card c6"><div class="badge">📖 AM</div><div class="icon">📘🌟</div><div class="title">AM Word Family</div><a href="https://wordwall.net/play/110661/303/684" target="_blank">▶ Play Now</a></div>
-    <div class="card c7"><div class="badge">🔺 Cone</div><div class="icon">🍦🎢</div><div class="title">Cone Game</div><a href="https://www.tinytap.com/activities/g64ui/play/the-cone-shape-adventure-game" target="_blank">▶ Play Now</a></div>
-    <div class="card c8"><div class="badge">🐧 Q</div><div class="icon">🔤👑</div><div class="title">Find Letter Q</div><a href="https://wordwall.net/play/111571/176/301" target="_blank">▶ Play Now</a></div>
-    <div class="card c9"><div class="badge">🪰 Fly</div><div class="icon">🎯✨</div><div class="title">Fly & Sphere</div><a href="https://wordwall.net/play/110950/423/948" target="_blank">▶ Play Now</a></div>
-    <div class="card c10"><div class="badge">📦 Cyl</div><div class="icon">🔘📦</div><div class="title">Find Cylinder</div><a href="https://wordwall.net/play/111503/760/581" target="_blank">▶ Play Now</a></div>
-    <div class="card c11"><div class="badge">🧴 Cyl2</div><div class="icon">🛢️🎲</div><div class="title">Cylinder Game 2</div><a href="https://wordwall.net/play/111504/688/950" target="_blank">▶ Play Now</a></div>
-    <div class="card c12"><div class="badge">🌀 Maze</div><div class="icon">🧩🕳️</div><div class="title">Cylinder Maze</div><a href="https://wordwall.net/play/111502/856/195" target="_blank">▶ Play Now</a></div>
-    <div class="card c13"><div class="badge">🐛 W</div><div class="icon">🔤🪶</div><div class="title">Letter W</div><a href="https://www.tinytap.com/activities/g65ca/play/all-about-the-letter-ww" target="_blank">▶ Play Now</a></div>
-    <div class="card c14"><div class="badge">🍦 Cone</div><div class="icon">🏔️🎮</div><div class="title">Cone Adventure</div><a href="https://www.tinytap.com/activities/g64ud/play/the-cone-shape-interactive-game" target="_blank">▶ Play Now</a></div>
-    <div class="card c15"><div class="badge">⛰️ Cone</div><div class="icon">🔷✨</div><div class="title">Cone Shape</div><a href="https://www.tinytap.com/activities/g64ui/play/the-cone-shape-adventure-game" target="_blank">▶ Play Now</a></div>
-    <div class="card c16"><div class="badge">🔠 Sort W</div><div class="icon">📂🅆</div><div class="title">Sort Letter W</div><a href="https://wordwall.net/play/111598/847/844" target="_blank">▶ Play Now</a></div>
-    <div class="card c17"><div class="badge">🔠 Sort Q</div><div class="icon">📂🅀</div><div class="title">Sort Letter Q</div><a href="https://wordwall.net/play/111598/847/635" target="_blank">▶ Play Now</a></div>
-    <div class="card c18"><div class="badge">🧸 Objects</div><div class="icon">📦🖍️</div><div class="title">Sort Objects</div><a href="https://wordwall.net/play/111618/488/537" target="_blank">▶ Play Now</a></div>
-    <div class="card c19"><div class="badge">⭐ Extra Z</div><div class="icon">🔤🎉</div><div class="title">Extra Z Game</div><a href="https://wordwall.net/play/110219/586/419" target="_blank">▶ Play Now</a></div>
-    <div class="card c20"><div class="badge">🌈 Fun</div><div class="icon">🎮🌟</div><div class="title">Fun Learning Game</div><a href="https://wordwall.net/play/110661/303/684" target="_blank">▶ Play Now</a></div>
+  <div class="card c4"><div class="badge">🔟</div><div class="icon">🔢🎈</div><div class="title">Hit Number 10</div><a href="https://wordwall.net/play/110651/800/595" target="_blank">▶ Play Now</a></div>
+  <div class="card c7"><div class="badge">🔺 Cone</div><div class="icon">🍦🎢</div><div class="title">Cone Game</div><a href="https://www.tinytap.com/activities/g64ui/play/the-cone-shape-adventure-game" target="_blank">▶ Play Now</a></div>
+  <div class="card c8"><div class="badge">📐 AAB</div><div class="icon">🧩🟦🟦</div><div class="title">AAB Pattern</div><a href="https://wordwall.net/play/110653/787/566" target="_blank">▶ Play Now</a></div>
+  <div class="card c12"><div class="badge">🌀 Maze</div><div class="icon">🧩🕳️</div><div class="title">Cylinder Maze</div><a href="https://wordwall.net/play/111502/856/195" target="_blank">▶ Play Now</a></div>
+  <div class="card c13"><div class="badge">🧴 Cyl</div><div class="icon">📦🔘</div><div class="title">Cylinder Shape</div><a href="https://www.tinytap.com/activities/g65da/play/all-about-the-cylinder-shape" target="_blank">▶ Play Now</a></div>
+  <div class="card c14"><div class="badge">🍦 Cone</div><div class="icon">🏔️🎮</div><div class="title">Cone Interactive</div><a href="https://www.tinytap.com/activities/g64ud/play/the-cone-shape-interactive-game" target="_blank">▶ Play Now</a></div>
+  <div class="card c15"><div class="badge">⛰️ Cone</div><div class="icon">🔷✨</div><div class="title">Cone Shape</div><a href="https://www.tinytap.com/activities/draft/?userJwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." target="_blank">▶ Play Now</a></div>
+  <div class="card c16"><div class="badge">🧸 Sort</div><div class="icon">📦🖍️</div><div class="title">Sort Objects</div><a href="https://wordwall.net/play/111618/488/537" target="_blank">▶ Play Now</a></div>
+  <div class="card c17"><div class="badge">📦 Cyl</div><div class="icon">🔘📦</div><div class="title">Discover Cylinder</div><a href="https://wordwall.net/play/111599/569/522" target="_blank">▶ Play Now</a></div>
+  <div class="card c18"><div class="badge">📦 Cyl</div><div class="icon">🔘📦</div><div class="title">Find Cylinder</div><a href="https://wordwall.net/play/111503/760/581" target="_blank">▶ Play Now</a></div>
+  <div class="card c20"><div class="badge">🪰 Fly</div><div class="icon">🎯✨</div><div class="title">Fly & Sphere</div><a href="https://wordwall.net/play/110950/423/948" target="_blank">▶ Play Now</a></div>
   </div>
 </div>
 
-<!-- ========== FLASHCARD EXTRA SECTION (all links point to actual pages, no alerts) ========== -->
-<div class="flash-extra">
-  <div style="text-align: center;"><span class="extra-title">📚 Flashcard & Resources Corner 📚</span></div>
-  <div class="extra-flex">
-    <div class="flash-card-item">
-      <i class="fas fa-language"></i>
-      <h3>📘 English Flashcards</h3>
-      <p>Learn letters, words & phonics with vibrant cards!</p>
-      <a href="english-flashcards.html">Explore English Cards →</a>
-    </div>
-    <div class="flash-card-item">
-      <i class="fas fa-chalkboard-user"></i>
-      <h3>👩‍🏫 Hanady's Corner</h3>
-      <p>Special activities & stories with Teacher Hanady</p>
-      <a href="hanady-corner.html">Discover Hanady →</a>
-    </div>
-    <div class="flash-card-item">
-      <i class="fas fa-calculator"></i>
-      <h3>🧮 Math Flashcards</h3>
-      <p>Numbers, counting & shapes — fun math games!</p>
-      <a href="math-flashcards.html">Start Math Fun →</a>
+<!-- ========== GAME MODAL (Popup for Online Games) ========== -->
+<div id="gameModal" class="game-modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-container">
+    <button class="modal-close" id="closeGameModalBtn">&times;</button>
+    <h2>🎮 Choose your game!</h2>
+    <p>Let's play and learn with fun!</p>
+    <div class="modal-options">
+      <button id="englishGamesModalBtn" class="modal-option english-option"><i class="fas fa-book-open"></i> 📖 English Online Games</button>
+      <button id="mathGamesModalBtn" class="modal-option math-option"><i class="fas fa-calculator"></i> 🧮 Math Online Games</button>
     </div>
   </div>
 </div>
 
-<!-- ========== FOOTER (all external/valid actions, no alerts) ========== -->
+<!-- ========== FOOTER ========== -->
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-logo">
@@ -709,7 +815,7 @@
     </div>
     <div class="footer-social">
       <a href="https://www.instagram.com/albushra.kids" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i><span>@albushra.kids</span></a>
-      <a href="mailto:hello@albushra.com"><i class="fas fa-envelope"></i><span>hello@albushra.com</span></a>
+      <a href="mailto:hello@albushra.com"><i class="fas fa-envelope"></i><span>Albushra.ayesh@gmail.com</span></a>
       <a href="tel:+201002345678"><i class="fas fa-phone-alt"></i><span>+20 100 234 5678</span></a>
     </div>
   </div>
@@ -718,9 +824,8 @@
   </div>
 </footer>
 
-<!-- simple script: only mobile menu toggle and close, NO alerts, NO preventDefault on links -->
 <script>
-  // Mobile menu toggle logic (no alerts)
+  // Mobile menu toggle logic
   const hamburger = document.getElementById('hamburgerIcon');
   const mobileMenu = document.getElementById('mobileNavMenu');
   const closeMenuBtn = document.getElementById('closeMenuBtn');
@@ -736,14 +841,59 @@
   if (hamburger) hamburger.addEventListener('click', openMobileMenu);
   if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMobileMenu);
   
-  // Close mobile menu after clicking any link inside it for smooth navigation
   const mobileLinks = mobileMenu.querySelectorAll('a');
   mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
       closeMobileMenu();
     });
   });
-  // No alert code whatsoever — every link will navigate normally.
+
+  // ========== GAME MODAL LOGIC (for Online Games link) ==========
+  const gameTriggers = document.querySelectorAll('.game-trigger'); // both desktop & mobile links
+  const modal = document.getElementById('gameModal');
+  const closeModalBtn = document.getElementById('closeGameModalBtn');
+  const modalOverlay = document.querySelector('#gameModal .modal-overlay');
+  const englishBtn = document.getElementById('englishGamesModalBtn');
+  const mathBtn = document.getElementById('mathGamesModalBtn');
+
+  function openGameModal(event) {
+    if (event) event.preventDefault();
+    if (modal) modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeGameModal() {
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Attach click event to all .game-trigger links
+  gameTriggers.forEach(link => {
+    link.addEventListener('click', openGameModal);
+  });
+
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeGameModal);
+  if (modalOverlay) modalOverlay.addEventListener('click', closeGameModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+      closeGameModal();
+    }
+  });
+
+  // --- FIX: استخدام أسماء الملفات الصحيحة مع المسافات والامتدادات ---
+  if (englishBtn) {
+    englishBtn.addEventListener('click', () => {
+      // التوجيه إلى صفحة English Online Games.html
+      window.location.href = 'English Online Games.html';
+    });
+  }
+  if (mathBtn) {
+    mathBtn.addEventListener('click', () => {
+      // التوجيه إلى صفحة Math Online Games.htm
+      window.location.href = 'Math Online Games.html';
+    });
+  }
 </script>
 </body>
 </html>

@@ -340,37 +340,23 @@
     box-shadow: 0 6px 14px rgba(0,0,0,0.2);
   }
 
-  /* ============================================= */
-  /* UNIQUE HOVER COLORS FOR EACH DOWNLOAD BUTTON  */
-  /* each card's download button gets a different hover effect */
-  /* ============================================= */
-
-  /* Card 1 (she) → vibrant orange */
+  /* unique hover colors for each card download button */
   .grid .card:nth-child(1) .content a:hover {
     background: #f39c12 !important;
     box-shadow: 0 8px 18px rgba(243, 156, 18, 0.4);
   }
-
-  /* Card 2 (I) → rich crimson red */
   .grid .card:nth-child(2) .content a:hover {
     background: #e74c3c !important;
     box-shadow: 0 8px 18px rgba(231, 76, 60, 0.4);
   }
-
-  /* Card 3 (he) → royal purple */
   .grid .card:nth-child(3) .content a:hover {
     background: #9b59b6 !important;
     box-shadow: 0 8px 18px rgba(155, 89, 182, 0.4);
   }
-
-  /* Card 4 (the) → deep ocean blue */
   .grid .card:nth-child(4) .content a:hover {
     background: #2980b9 !important;
     box-shadow: 0 8px 18px rgba(41, 128, 185, 0.4);
   }
-
-  /* Additional micro-interaction: keep base transition smooth, each hover color is unique */
-  /* for consistent scaling and fun, different hover personality! */
 
   @media (max-width: 550px) {
     .grid { gap: 18px; }
@@ -445,6 +431,132 @@
   @media (max-width: 780px) {
     .footer-container { flex-direction: column; text-align: center; }
   }
+
+  /* ========== GAME MODAL (kindergarten style) ========== */
+  .game-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    animation: fadeOverlay 0.3s ease;
+  }
+  @keyframes fadeOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .modal-container {
+    position: relative;
+    background: #fffef7;
+    max-width: 460px;
+    width: 90%;
+    border-radius: 68px;
+    padding: 1.8rem 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 35px 55px -15px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,200,0.8);
+    border: 3px solid #ffb347;
+    animation: popModal 0.4s cubic-bezier(0.34, 1.3, 0.55, 1);
+    z-index: 10000;
+  }
+  @keyframes popModal {
+    0% { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 22px;
+    background: #ffe1c6;
+    border: none;
+    font-size: 28px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    color: #e63946;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-close:hover {
+    background: #ffb347;
+    color: white;
+    transform: rotate(90deg);
+  }
+  .modal-container h2 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #e65c2e;
+    margin: 0.5rem 0 0.2rem;
+    font-family: 'Kalam', cursive;
+  }
+  .modal-container p {
+    font-size: 1rem;
+    color: #4a5b66;
+    margin-bottom: 1.8rem;
+    font-weight: 500;
+  }
+  .modal-options {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .modal-option {
+    border: none;
+    padding: 16px 12px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: #ffecdd;
+    color: #b64926;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-family: 'Quicksand', sans-serif;
+    border: 2px solid #ffc896;
+  }
+  .modal-option i, .modal-option span {
+    font-size: 1.8rem;
+  }
+  .english-option {
+    background: #c7e9fb;
+    border-color: #6bb5ff;
+    color: #1f6392;
+  }
+  .english-option:hover {
+    background: #a1d4ff;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px -8px rgba(31,99,146,0.3);
+  }
+  .math-option {
+    background: #fee2b5;
+    border-color: #ffa559;
+    color: #aa4e1c;
+  }
+  .math-option:hover {
+    background: #ffd699;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px -8px rgba(170,78,28,0.3);
+  }
 </style>
 </head>
 <body>
@@ -463,8 +575,7 @@
   <nav id="desktopNav">
     <a href="index.html">🏠 Home</a>
     <a href="Worksheets.html">📄 Worksheets</a>
-    <a href="Videos.html">🎥 Videos</a>
-    <a href="Activities.html">🎮 Activities</a>
+    <a href="Online Games.html" class="game-link-trigger">🎮 Online Games</a>
     <a href="English Flashcards.html">📘 English Flashcards</a>
     <a href="Math Flashcards.html">🧮 Math Flashcards</a>
   </nav>
@@ -480,8 +591,7 @@
   <div class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></div>
   <a href="index.html">🏠 Home</a>
   <a href="Worksheets.html">📄 Worksheets</a>
-  <a href="Videos.html">🎥 Videos</a>
-  <a href="Activities.html">🎮 Activities</a>
+  <a href="Online Games.html" class="game-link-trigger">🎮 Online Games</a>
   <a href="English Flashcards.html">📘 English Flashcards</a>
   <a href="Math Flashcards.html">🧮 Math Flashcards</a>
 </div>
@@ -489,10 +599,10 @@
 <!-- ========== SIGHT WORDS FLASHCARDS SECTION ========== -->
 <div class="sightwords-section">
   <div class="heading-wrapper">
-    <div class="section-heading">📖 Sight Word Flashcards</div>
+    <div class="section-heading">📖 Sight Word Worksheets</div>
   </div>
   <div class="grid">
-    <!-- CARD 1 - SHE (hover: orange) -->
+    <!-- CARD 1 - SHE -->
     <div class="card">
       <img src="https://images.pexels.com/photos/8088225/pexels-photo-8088225.jpeg" alt="she flashcard" />
       <div class="overlay"></div>
@@ -503,29 +613,29 @@
       </div>
     </div>
 
-    <!-- CARD 2 - I (hover: crimson red) -->
+    <!-- CARD 2 - I -->
     <div class="card">
       <img src="https://images.pexels.com/photos/8535234/pexels-photo-8535234.jpeg" alt="I flashcard" />
       <div class="overlay"></div>
       <div class="content">
         <span class="badge">Sight Word</span>
         <h3>I</h3>
-        <a href="files/the sight word he.pdf" download>Download</a>
+        <a href="files/the sight word I .pdf" download>Download</a>
       </div>
     </div>
 
-    <!-- CARD 3 - HE (hover: purple) -->
+    <!-- CARD 3 - HE -->
     <div class="card">
       <img src="https://images.pexels.com/photos/8088103/pexels-photo-8088103.jpeg" alt="he flashcard" />
       <div class="overlay"></div>
       <div class="content">
         <span class="badge">Sight Word</span>
         <h3>he</h3>
-        <a href="files/the sight word I .pdf" download>Download</a>
+        <a href="files/the sight word he.pdf" download>Download</a>
       </div>
     </div>
 
-    <!-- CARD 4 - THE (hover: deep blue) -->
+    <!-- CARD 4 - THE -->
     <div class="card">
       <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=800&q=60" alt="the flashcard" />
       <div class="overlay"></div>
@@ -534,6 +644,20 @@
         <h3>the</h3>
         <a href="files/the sight word she.pdf" download>Download</a>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== GAME MODAL (Popup for Online Games) ========== -->
+<div id="gameModal" class="game-modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-container">
+    <button class="modal-close" id="closeGameModalBtn">&times;</button>
+    <h2>🎮 Choose your game!</h2>
+    <p>Let's play and learn with fun!</p>
+    <div class="modal-options">
+      <button id="englishGamesModalBtn" class="modal-option english-option"><i class="fas fa-book-open"></i> 📖 English Online Games</button>
+      <button id="mathGamesModalBtn" class="modal-option math-option"><i class="fas fa-calculator"></i> 🧮 Math Online Games</button>
     </div>
   </div>
 </div>
@@ -584,6 +708,55 @@
       closeMobileMenu();
     });
   });
+
+  // ========== GAME MODAL LOGIC (with correct filenames including spaces) ==========
+  // Select all links that point to "Online Games.html" (both desktop and mobile)
+  const gameLinks = document.querySelectorAll('a[href="Online Games.html"]');
+  const modal = document.getElementById('gameModal');
+  const closeModalBtn = document.getElementById('closeGameModalBtn');
+  const modalOverlay = document.querySelector('#gameModal .modal-overlay');
+  const englishBtn = document.getElementById('englishGamesModalBtn');
+  const mathBtn = document.getElementById('mathGamesModalBtn');
+
+  function openGameModal(event) {
+    if (event) event.preventDefault();
+    if (modal) modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeGameModal() {
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Attach click event to every Online Games link
+  gameLinks.forEach(link => {
+    link.addEventListener('click', openGameModal);
+  });
+
+  // Close modal via close button or overlay click
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeGameModal);
+  if (modalOverlay) modalOverlay.addEventListener('click', closeGameModal);
+
+  // Escape key closes modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+      closeGameModal();
+    }
+  });
+
+  // Redirect to the CORRECT pages (with spaces and proper extensions)
+  if (englishBtn) {
+    englishBtn.addEventListener('click', () => {
+      window.location.href = 'English Online Games.html';
+    });
+  }
+
+  if (mathBtn) {
+    mathBtn.addEventListener('click', () => {
+      window.location.href = 'Math Online Games.html';
+    });
+  }
 </script>
 </body>
 </html>

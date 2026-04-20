@@ -351,7 +351,13 @@
     .hero-right h5 { color: #ff4d4d; letter-spacing: 3px; font-weight: 600; margin-bottom: 12px; }
     .hero-right h1 { font-size: 58px; color: #8e1c5c; line-height: 1.2; font-weight: 800; }
     .hero-right h1 span { background: linear-gradient(135deg, #ff4d4d, #ff9f4a); background-clip: text; -webkit-background-clip: text; color: transparent; }
-    .hero-right p { margin: 24px 0; color: #2c3e4e; line-height: 1.75; font-weight: 500; }
+    .hero-right p { 
+      margin: 24px 0; 
+      color: #2c3e4e; 
+      line-height: 1.65; 
+      font-weight: 500; 
+      font-size: 1.25rem; 
+    }
     .tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
     .tags span { display: inline-block; padding: 8px 20px; background: #fff2e6; border: 1.5px solid #ffb5a7; border-radius: 60px; font-size: 14px; font-weight: 600; color: #bc3900; transition: all 0.2s; }
     .tags span:hover { transform: translateY(-3px); background: #ffe6d5; }
@@ -364,6 +370,7 @@
       background: #fef6f0;
       margin-top: 0;
       z-index: 2;
+      scroll-margin-top: 100px;
     }
     .teacher-container { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
     .bg-circle { position: absolute; border-radius: 50%; z-index: 0; pointer-events: none; }
@@ -388,7 +395,6 @@
     .session-title { text-align: center; font-size: 2.8rem; font-weight: 800; color: #1F2F3C; margin-bottom: 0.75rem; letter-spacing: -0.3px; text-shadow: 3px 3px 0 rgba(255,200,150,0.5); }
     .session-description { text-align: center; font-size: 1.2rem; color: #3a4e62; background: transparent; max-width: 650px; margin: 0 auto 2.5rem auto; line-height: 1.4; font-weight: 500; }
     .cards-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 1.5rem; }
-    .cards-row:last-child { margin-bottom: 0; }
     .learning-card { border-radius: 28px; padding: 1.2rem 0.5rem; text-align: center; box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.15); transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1); display: flex; flex-direction: column; align-items: center; gap: 0.7rem; cursor: pointer; border: 3px solid; }
     .learning-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.25); }
     .learning-card:hover .card-icon-lg { animation: iconPop 0.4s ease; }
@@ -418,6 +424,17 @@
     .card p { font-size: 14px; opacity: 0.95; line-height: 1.5; font-weight: 500; }
     .card a { display: inline-block; margin-top: 18px; padding: 10px 24px; border-radius: 40px; text-decoration: none; font-weight: 700; color: #fff; background: rgba(255,255,255,0.25); transition: all 0.3s ease; backdrop-filter: blur(2px); font-size: 0.9rem; }
     .card:hover a { transform: translateY(-3px); background: rgba(0,0,0,0.2); }
+    .coming-soon-text {
+      margin-top: 12px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      background: rgba(255,255,200,0.3);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 40px;
+      backdrop-filter: blur(2px);
+      letter-spacing: 0.3px;
+    }
     .card1 { background: linear-gradient(135deg, rgba(0,200,83,0.88), rgba(70,230,130,0.88)); box-shadow: 0 15px 30px rgba(0,200,83,0.3); }
     .card2 { background: linear-gradient(135deg, rgba(33,150,243,0.88), rgba(80,180,255,0.88)); box-shadow: 0 15px 30px rgba(33,150,243,0.3); }
     .card3 { background: linear-gradient(135deg, rgba(255,77,77,0.88), rgba(255,130,100,0.88)); box-shadow: 0 15px 30px rgba(255,77,77,0.3); }
@@ -546,6 +563,7 @@
       .cards-row { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
       .session-title { font-size: 2.2rem; }
       .extra-title { font-size: 1.8rem; }
+      .hero-right p { font-size: 1.1rem; }
     }
     @media (max-width: 500px) {
       .cards-row { grid-template-columns: 1fr; gap: 0.9rem; }
@@ -553,6 +571,7 @@
       .card-icon-lg { font-size: 2rem; }
       .kids-section { gap: 20px; }
       .card { width: 260px; padding: 22px 16px; }
+      .hero-right p { font-size: 1rem; }
     }
     @media (max-width: 950px) {
       .hero { padding: 50px 30px; justify-content: center; text-align: center; }
@@ -567,6 +586,132 @@
       .teacher-message-card { padding: 1rem 1.2rem; border-radius: 36px; }
       .teacher-quote { padding: 0.8rem; font-size: 0.85rem; }
       .message-header h2 { font-size: 1.2rem; }
+    }
+
+    /* ========== GAME MODAL (KINDERGARTEN STYLE) ========== */
+    .game-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(6px);
+      animation: fadeOverlay 0.3s ease;
+    }
+    @keyframes fadeOverlay {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-container {
+      position: relative;
+      background: #fffef7;
+      max-width: 460px;
+      width: 90%;
+      border-radius: 68px;
+      padding: 1.8rem 1.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 35px 55px -15px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,200,0.8);
+      border: 3px solid #ffb347;
+      animation: popModal 0.4s cubic-bezier(0.34, 1.3, 0.55, 1);
+      z-index: 10000;
+    }
+    @keyframes popModal {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 22px;
+      background: #ffe1c6;
+      border: none;
+      font-size: 28px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      color: #e63946;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover {
+      background: #ffb347;
+      color: white;
+      transform: rotate(90deg);
+    }
+    .modal-container h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #e65c2e;
+      margin: 0.5rem 0 0.2rem;
+      font-family: 'Kalam', cursive;
+    }
+    .modal-container p {
+      font-size: 1rem;
+      color: #4a5b66;
+      margin-bottom: 1.8rem;
+      font-weight: 500;
+    }
+    .modal-options {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 10px;
+    }
+    .modal-option {
+      border: none;
+      padding: 16px 12px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: #ffecdd;
+      color: #b64926;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      font-family: 'Quicksand', sans-serif;
+      border: 2px solid #ffc896;
+    }
+    .modal-option i, .modal-option span {
+      font-size: 1.8rem;
+    }
+    .english-option {
+      background: #c7e9fb;
+      border-color: #6bb5ff;
+      color: #1f6392;
+    }
+    .english-option:hover {
+      background: #a1d4ff;
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px -8px rgba(31,99,146,0.3);
+    }
+    .math-option {
+      background: #fee2b5;
+      border-color: #ffa559;
+      color: #aa4e1c;
+    }
+    .math-option:hover {
+      background: #ffd699;
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px -8px rgba(170,78,28,0.3);
     }
     .teacher-message-card { animation: gentleRise 0.5s ease-out forwards; }
     @keyframes gentleRise { 0% { opacity: 0; transform: translateY(12px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
@@ -594,8 +739,8 @@
   <nav id="navMenu">
     <a href="index.html" class="active">🏠 Home</a>
     <a href="Worksheets.html">📄 Worksheets</a>
-    <a href="Videos.html">🎥 Videos</a>
-    <a href="Activities.html" >🎮 Activities</a>
+    <a href="#" id="aboutMeLink">About Me</a>
+    <a href="#" id="onlineGamesMainLink">🎮 Online Games</a>
     <a href="English Flashcards.html">📘 English Flashcards</a>
     <a href="Math Flashcards.html">🧮 Math Flashcards</a>
   </nav>
@@ -621,12 +766,12 @@
   <div class="hero-right">
     <h5>WELCOME TO</h5>
     <h1>Ms. Albushra's <br><span>World!</span></h1>
-    <p>Hello, wonderful families! I'm Ms. Albushra Ayesh, a passionate Kindergarten and Pre-K teacher dedicated to nurturing every child's love of learning. I believe that the early years are the most important — and I'm here to make them magical, meaningful, and fun 🌈</p>
+    <p>Hello, wonderful families! I'm Ms. Albushra Ayesh, a passionate Kindergarten teacher dedicated to nurturing every child's love of learning. I believe that the early years are the most important — and I'm here to make them magical, meaningful, and fun</p>
     <div class="tags"><span>B.A. English Literature 📘</span><span>Certified Trainer (TOT) 🏅</span><span>M.A. Educational Leadership 🎓</span></div>
   </div>
 </section>
 
-<section class="teacher-section">
+<section id="meetTeacherSection" class="teacher-section">
   <div class="teacher-container">
     <div class="bg-circle circle-1"></div><div class="bg-circle circle-2"></div>
     <div class="teacher-header fade-up"><span class="subtitle">🌟 MEET YOUR TEACHER 👩‍🏫</span><h2>Experienced, creative, and deeply committed to every child's growth.</h2></div>
@@ -650,7 +795,7 @@
   <div class="cards-row">
     <div class="learning-card scale-on-scroll delay-5"><span class="card-icon-lg">🧠</span><span class="card-title">Cognitive Skills</span></div>
     <div class="learning-card scale-on-scroll delay-6"><span class="card-icon-lg">📖</span><span class="card-title">Story Time</span></div>
-    <div class="learning-card scale-on-scroll delay-7"><span class="card-icon-lg">👨‍👩‍👧‍👦</span><span class="card-title">Family Words</span></div>
+    <div class="learning-card scale-on-scroll delay-7"><span class="card-icon-lg">👨‍👩‍👧‍👦</span><span class="card-title">Word families</span></div>
     <div class="learning-card scale-on-scroll delay-8"><span class="card-icon-lg">🎨</span><span class="card-title">Arts & Crafts</span></div>
   </div>
 </section>
@@ -658,9 +803,8 @@
 <div class="extra-learning-wrapper">
   <div style="text-align: center;" class="fade-up"><div class="extra-title">🌟 More Learning Adventures Await! 🌟</div></div>
   <section class="kids-section">
-    <div class="card card1 fade-up delay-1"><div class="icon">📄</div><h2>Worksheets</h2><p>Carefully designed worksheets to build language, literacy, and number skills step by step.</p><a href="Worksheets.html" class="card-link">Let’s Go →</a></div>
-    <div class="card card2 fade-up delay-2"><div class="icon">🎬</div><h2>Videos</h2><p>Engaging educational videos that make learning English, numbers, and concepts exciting!</p><a href="Videos.html" class="card-link">Let’s Go →</a></div>
-    <div class="card card3 fade-up delay-3"><div class="icon">🎮</div><h2>Activities & Games</h2><p>Hands-on creative activities and interactive games that bring learning to life!</p><a href="Activities.html" class="card-link">Let’s Go →</a></div>
+    <div class="card card1 fade-up delay-1"><div class="icon">📄</div><h2>Worksheets</h2><p>Carefully designed worksheets to build language, literacy, and number skills step by step.</p><a href="Worksheets.html" class="card-link">Let’s Go →</a><div class="coming-soon-text">🔜 Coming soon</div></div>
+    <div class="card card3 fade-up delay-3"><div class="icon">🎮</div><h2>Activities & Games</h2><p>Hands-on creative activities and interactive games that bring learning to life!</p><a href="#" id="activitiesGameLink" class="card-link">Let’s Go →</a><div class="coming-soon-text">🔜 Coming soon</div></div>
   </section>
 </div>
 
@@ -672,7 +816,7 @@
       <p>📚 My goal is to nurture each child's language, social, and cognitive skills in a warm, bilingual environment where both English and Arabic are celebrated. I design every lesson with creativity and purpose, because I truly believe that when learning is joyful, it becomes lasting.</p>
       <p>🌟 Every child is unique, capable, and full of potential. Together, let's help them shine! 🌟"</p>
     </div>
-    <div class="teacher-signature"><i class="fas fa-chalkboard-user"></i> Ms. Albushra Ayesh <span class="sunflower-icon">🌻</span><span style="font-size: 0.7rem; font-family: 'Quicksand';">Kindergarten & Pre-K Teacher</span></div>
+    <div class="teacher-signature"><i class="fas fa-chalkboard-user"></i> Ms. Albushra Ayesh <span class="sunflower-icon">🌻</span><span style="font-size: 0.7rem; font-family: 'Quicksand';">Kindergarten </span></div>
     <div class="arabic-welcome"><i class="fas fa-globe"></i> ترحب بكم السيدة البشرى · معًا ننمي الفضول والثقة</div>
   </div>
 </div>
@@ -688,7 +832,7 @@
     </div>
     <div class="footer-social">
       <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> <span>albushra.kids</span></a>
-      <a href="mailto:albushra@kindergarten.com" aria-label="Email"><i class="fas fa-envelope"></i> <span>albushra@learn.com</span></a>
+      <a href="mailto:albushra@kindergarten.com" aria-label="Email"><i class="fas fa-envelope"></i> <span>Albushra.ayesh@gmail.com</span></a>
       <a href="#" aria-label="Phone"><i class="fas fa-phone-alt"></i> <span>+20 123 456 789</span></a>
     </div>
   </div>
@@ -696,6 +840,20 @@
     <p>© 2025 Ms. Albushra's World — Nurturing curious hearts & minds 💛</p>
   </div>
 </footer>
+
+<!-- GAME SELECTION MODAL -->
+<div id="gameModal" class="game-modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-container">
+    <button class="modal-close" id="closeGameModalBtn">&times;</button>
+    <h2>🎮 Choose your game!</h2>
+    <p>Let's play and learn with fun!</p>
+    <div class="modal-options">
+      <button id="englishGamesModalBtn" class="modal-option english-option"><i class="fas fa-book-open"></i> 📖 English Online Games</button>
+      <button id="mathGamesModalBtn" class="modal-option math-option"><i class="fas fa-calculator"></i> 🧮 Math Online Games</button>
+    </div>
+  </div>
+</div>
 
 <script>
   (function() {
@@ -710,7 +868,6 @@
         navMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu(); 
       });
     }
-    // Close mobile menu when clicking a link (only on mobile)
     const mobileLinks = document.querySelectorAll('#navMenu a');
     mobileLinks.forEach(link => {
       link.addEventListener('click', () => {
@@ -754,6 +911,80 @@
         flower.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
         document.body.appendChild(flower);
         setTimeout(() => { flower.style.opacity = '0'; flower.style.transform = 'translate(-50%, -50%) scale(1.4)'; setTimeout(() => flower.remove(), 400); }, 250);
+      });
+    }
+
+    // Smooth scroll for "About Me"
+    const aboutLink = document.getElementById('aboutMeLink');
+    const teacherSection = document.getElementById('meetTeacherSection');
+    if(aboutLink && teacherSection) {
+      aboutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const offset = 90;
+        const elementPosition = teacherSection.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+        history.pushState(null, null, ' ');
+      });
+    }
+
+    // ---------- GAMES MODAL LOGIC (FIXED: properly navigates to Math & English pages) ----------
+    const modal = document.getElementById('gameModal');
+    const closeModalBtn = document.getElementById('closeGameModalBtn');
+    const modalOverlay = document.querySelector('#gameModal .modal-overlay');
+    const englishBtn = document.getElementById('englishGamesModalBtn');
+    const mathBtn = document.getElementById('mathGamesModalBtn');
+    
+    // All triggers that should open the game selection modal
+    const onlineGamesTrigger = document.getElementById('onlineGamesMainLink');
+    const activitiesGameLink = document.getElementById('activitiesGameLink');
+    
+    function openGameModal(event) {
+      if(event) event.preventDefault();
+      if(modal) modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeGameModal() {
+      if(modal) modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    
+    // Attach click events to open modal
+    if(onlineGamesTrigger) {
+      onlineGamesTrigger.addEventListener('click', openGameModal);
+    }
+    if(activitiesGameLink) {
+      activitiesGameLink.addEventListener('click', openGameModal);
+    }
+    
+    // Also catch any remaining anchor with href="Online Games.html" or similar (just in case)
+    const anyOnlineGameLinks = document.querySelectorAll('a[href="Online Games.html"], a[href="./Online Games.html"]');
+    anyOnlineGameLinks.forEach(link => {
+      link.addEventListener('click', openGameModal);
+    });
+    
+    // Close modal events
+    if(closeModalBtn) closeModalBtn.addEventListener('click', closeGameModal);
+    if(modalOverlay) modalOverlay.addEventListener('click', closeGameModal);
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && modal && modal.style.display === 'flex') {
+        closeGameModal();
+      }
+    });
+    
+    // CORRECTED NAVIGATION: encode filenames with spaces to ensure browser compatibility
+    if(englishBtn) {
+      englishBtn.addEventListener('click', () => {
+        closeGameModal(); // close modal before redirect
+        // Use encodeURI to handle spaces correctly
+        window.location.href = encodeURI('English Online Games.html');
+      });
+    }
+    if(mathBtn) {
+      mathBtn.addEventListener('click', () => {
+        closeGameModal();
+        // FIX: correctly navigate to Math Online Games.htm (with .htm extension)
+        window.location.href = encodeURI('Math Online Games.html');
       });
     }
   })();
