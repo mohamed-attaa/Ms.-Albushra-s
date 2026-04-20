@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>Albushra World | Sight Words Flashcards</title>
+<!-- Google Fonts + Font Awesome -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Baloo+2:wght@500;600;700;800&family=Kalam:wght@300;400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<style>
+  /* ---------- GLOBAL RESET ---------- */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body{
+    font-family: 'Quicksand', 'Poppins', sans-serif;
+    overflow-x: hidden;
+    background-image: url("https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  /* ========== STICKY NAVBAR (combined) ========== */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 30px;
+    background: rgba(255, 250, 240, 0.96);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 3px solid #ffb347;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 235, 205, 0.5);
+    padding: 5px 18px 5px 12px;
+    border-radius: 60px;
+  }
+
+  .star {
+    font-size: 32px;
+    animation: starGlow 2.5s infinite alternate;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
+  }
+
+  @keyframes starGlow {
+    0% { transform: rotate(0deg) scale(1); text-shadow: 0 0 0px gold; }
+    100% { transform: rotate(8deg) scale(1.08); text-shadow: 0 0 8px #ffdd99; }
+  }
+
+  .logo h3 {
+    font-family: 'Baloo 2', cursive;
+    color: #e34d3b;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+
+  .logo p {
+    font-size: 10px;
+    color: #f4a261;
+    font-weight: 700;
+    background: #fff2e0;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 40px;
+  }
+
+  /* Desktop navigation */
+  nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 50px;
+    background: rgba(255, 241, 220, 0.4);
+    font-weight: 700;
+    color: #4a3b2c;
+    transition: 0.3s;
+    font-family: 'Baloo 2', cursive;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  nav a i, nav a span {
+    font-size: 1rem;
+  }
+
+  nav a:hover {
+    background: #ffd966;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    background: #ffd9b5;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    color: #c43a1b;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  .hamburger:hover {
+    background: #ffb66f;
+    transform: scale(1.02);
+  }
+
+  /* Mobile menu overlay */
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 245, 235, 0.98);
+    backdrop-filter: blur(12px);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    padding: 2rem;
+  }
+  .mobile-nav.open {
+    transform: translateX(0);
+  }
+  .mobile-nav a {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-decoration: none;
+    background: #ffd9b5;
+    padding: 12px 28px;
+    border-radius: 60px;
+    width: 80%;
+    text-align: center;
+    font-family: 'Baloo 2', cursive;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #4a2e1f;
+  }
+  .mobile-nav a i {
+    font-size: 1.8rem;
+  }
+  .mobile-nav a:hover, .mobile-nav a:active {
+    background: #ff9f4a;
+    color: white;
+    transform: scale(1.02);
+  }
+  .close-menu {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 2.5rem;
+    background: #ffb77c;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s;
+  }
+  .close-menu:hover {
+    background: #e55a2c;
+    transform: rotate(90deg);
+  }
+
+  @media (max-width: 880px) {
+    .navbar { padding: 12px 20px; }
+    nav { display: none; }
+    .hamburger { display: flex; }
+    .logo h3 { font-size: 1rem; }
+  }
+  @media (max-width: 600px) {
+    .logo { padding: 3px 12px; }
+    .star { font-size: 28px; }
+    .mobile-nav a { font-size: 1.2rem; padding: 10px 18px; width: 90%; }
+    .mobile-nav a i { font-size: 1.3rem; }
+    .close-menu { width: 45px; height: 45px; font-size: 2rem; top: 20px; right: 20px; }
+  }
+
+  /* ========== SIGHT WORDS GRID SECTION ========== */
+  .sightwords-section {
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 24px;
+  }
+  .section-heading {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #d43f1d;
+    margin-bottom: 35px;
+    background: #fff4e6;
+    display: inline-block;
+    width: auto;
+    padding: 10px 42px;
+    border-radius: 70px;
+    letter-spacing: -0.5px;
+    box-shadow: 0 8px 14px rgba(0,0,0,0.05);
+    font-family: 'Baloo 2', cursive;
+    border: 2px solid #ffc48a;
+  }
+  .heading-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
+    padding: 0;
+  }
+
+  .card {
+    position: relative;
+    height: 280px;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+    transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 28px 36px -12px rgba(0, 0, 0, 0.3);
+  }
+
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+    transition: transform 0.4s ease;
+  }
+
+  .card:hover img {
+    transform: scale(1.1);
+  }
+
+  /* dark gradient overlay */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent 70%);
+    z-index: 1;
+  }
+
+  /* content */
+  .content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    color: white;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .content h3 {
+    font-size: 2rem;
+    font-family: 'Baloo 2', cursive;
+    margin: 8px 0;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    letter-spacing: 1px;
+  }
+
+  /* badge */
+  .badge {
+    background: #ffb347;
+    padding: 5px 14px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #3a2a1a;
+    display: inline-block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    font-family: 'Baloo 2', cursive;
+  }
+
+  /* download button - BASE STYLE (emerald green) */
+  .content a {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 22px;
+    background: #42b983;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 800;
+    font-family: 'Baloo 2', cursive;
+    transition: all 0.25s ease-in-out;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border: none;
+    cursor: pointer;
+  }
+
+  .content a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+  }
+
+  /* ============================================= */
+  /* UNIQUE HOVER COLORS FOR EACH DOWNLOAD BUTTON  */
+  /* each card's download button gets a different hover effect */
+  /* ============================================= */
+
+  /* Card 1 (she) → vibrant orange */
+  .grid .card:nth-child(1) .content a:hover {
+    background: #f39c12 !important;
+    box-shadow: 0 8px 18px rgba(243, 156, 18, 0.4);
+  }
+
+  /* Card 2 (I) → rich crimson red */
+  .grid .card:nth-child(2) .content a:hover {
+    background: #e74c3c !important;
+    box-shadow: 0 8px 18px rgba(231, 76, 60, 0.4);
+  }
+
+  /* Card 3 (he) → royal purple */
+  .grid .card:nth-child(3) .content a:hover {
+    background: #9b59b6 !important;
+    box-shadow: 0 8px 18px rgba(155, 89, 182, 0.4);
+  }
+
+  /* Card 4 (the) → deep ocean blue */
+  .grid .card:nth-child(4) .content a:hover {
+    background: #2980b9 !important;
+    box-shadow: 0 8px 18px rgba(41, 128, 185, 0.4);
+  }
+
+  /* Additional micro-interaction: keep base transition smooth, each hover color is unique */
+  /* for consistent scaling and fun, different hover personality! */
+
+  @media (max-width: 550px) {
+    .grid { gap: 18px; }
+    .card { height: 240px; }
+    .content h3 { font-size: 1.6rem; }
+    .section-heading { font-size: 1.8rem; padding: 6px 20px; }
+    .sightwords-section { padding: 0 16px; margin-top: 20px; }
+  }
+
+  /* footer */
+  .footer {
+    background: #f07c5c;
+    background-image: repeating-linear-gradient(45deg, #ffb47b10 0px, #ffb47b10 2px, transparent 2px, transparent 8px);
+    color: #fff4e6;
+    padding: 1.8rem 2rem 1rem;
+    text-align: center;
+    border-top: 8px solid #ffd966;
+    margin-top: 60px;
+  }
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,235,200,0.2);
+    padding: 5px 20px;
+    border-radius: 60px;
+  }
+  .footer-logo .star {
+    font-size: 28px;
+  }
+  .footer-logo h4 {
+    font-family: 'Kalam', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .footer-social {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-social a {
+    color: #fff0da;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,210,0.1);
+    padding: 6px 16px;
+    border-radius: 50px;
+    transition: 0.25s;
+  }
+  .footer-social a:hover {
+    background: #ffb347;
+    color: #3a280f;
+  }
+  .footer-copyright {
+    margin-top: 1.5rem;
+    font-size: 0.7rem;
+    opacity: 0.85;
+    border-top: 2px dotted #ffcf9a;
+    padding-top: 1rem;
+  }
+  @media (max-width: 780px) {
+    .footer-container { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== STICKY NAVBAR ========== -->
+<header class="navbar">
+  <div class="logo">
+    <span class="star">🌟</span>
+    <div>
+      <h3>Albushra's World</h3>
+      <p>✨ kinder joy ✨</p>
+    </div>
+  </div>
+
+  <!-- Desktop Menu -->
+  <nav id="desktopNav">
+    <a href="index.html">🏠 Home</a>
+    <a href="Worksheets.html">📄 Worksheets</a>
+    <a href="Videos.html">🎥 Videos</a>
+    <a href="Activities.html">🎮 Activities</a>
+    <a href="English Flashcards.html">📘 English Flashcards</a>
+    <a href="Math Flashcards.html">🧮 Math Flashcards</a>
+  </nav>
+
+  <!-- Mobile Icon -->
+  <div class="hamburger" id="hamburgerIcon">
+    <i class="fas fa-bars"></i>
+  </div>
+</header>
+
+<!-- Mobile Menu (fullscreen) -->
+<div class="mobile-nav" id="mobileNavMenu">
+  <div class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></div>
+  <a href="index.html">🏠 Home</a>
+  <a href="Worksheets.html">📄 Worksheets</a>
+  <a href="Videos.html">🎥 Videos</a>
+  <a href="Activities.html">🎮 Activities</a>
+  <a href="English Flashcards.html">📘 English Flashcards</a>
+  <a href="Math Flashcards.html">🧮 Math Flashcards</a>
+</div>
+
+<!-- ========== SIGHT WORDS FLASHCARDS SECTION ========== -->
+<div class="sightwords-section">
+  <div class="heading-wrapper">
+    <div class="section-heading">📖 Sight Word Flashcards</div>
+  </div>
+  <div class="grid">
+    <!-- CARD 1 - SHE (hover: orange) -->
+    <div class="card">
+      <img src="https://images.pexels.com/photos/8088225/pexels-photo-8088225.jpeg" alt="she flashcard" />
+      <div class="overlay"></div>
+      <div class="content">
+        <span class="badge">Sight Word</span>
+        <h3>she</h3>
+        <a href="files/The sight word  The.pdf" download>Download</a>
+      </div>
+    </div>
+
+    <!-- CARD 2 - I (hover: crimson red) -->
+    <div class="card">
+      <img src="https://images.pexels.com/photos/8535234/pexels-photo-8535234.jpeg" alt="I flashcard" />
+      <div class="overlay"></div>
+      <div class="content">
+        <span class="badge">Sight Word</span>
+        <h3>I</h3>
+        <a href="files/the sight word he.pdf" download>Download</a>
+      </div>
+    </div>
+
+    <!-- CARD 3 - HE (hover: purple) -->
+    <div class="card">
+      <img src="https://images.pexels.com/photos/8088103/pexels-photo-8088103.jpeg" alt="he flashcard" />
+      <div class="overlay"></div>
+      <div class="content">
+        <span class="badge">Sight Word</span>
+        <h3>he</h3>
+        <a href="files/the sight word I .pdf" download>Download</a>
+      </div>
+    </div>
+
+    <!-- CARD 4 - THE (hover: deep blue) -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=800&q=60" alt="the flashcard" />
+      <div class="overlay"></div>
+      <div class="content">
+        <span class="badge">Sight Word</span>
+        <h3>the</h3>
+        <a href="files/the sight word she.pdf" download>Download</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SIMPLE FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <span class="star">🌟</span>
+      <div>
+        <h4>Albushra's World</h4>
+        <p>❤️ kindergarten adventure</p>
+      </div>
+    </div>
+    <div class="footer-social">
+      <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i><span>@albushra.kids</span></a>
+      <a href="mailto:hello@albushra.com"><i class="fas fa-envelope"></i><span>hello@albushra.com</span></a>
+      <a href="#"><i class="fas fa-phone-alt"></i><span>+20 100 234 5678</span></a>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <p>© 2025 Ms. Albushra's World — where little hands build big dreams ✨</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const hamburger = document.getElementById("hamburgerIcon");
+  const mobileMenu = document.getElementById("mobileNavMenu");
+  const closeMenuBtn = document.getElementById("closeMenuBtn");
+
+  function openMobileMenu() {
+    mobileMenu.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeMobileMenu() {
+    mobileMenu.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  if (hamburger) hamburger.addEventListener("click", openMobileMenu);
+  if (closeMenuBtn) closeMenuBtn.addEventListener("click", closeMobileMenu);
+
+  // Close mobile menu after clicking any link inside
+  const mobileLinks = mobileMenu.querySelectorAll("a");
+  mobileLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      closeMobileMenu();
+    });
+  });
+</script>
+</body>
+</html>
