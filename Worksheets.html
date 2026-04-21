@@ -578,6 +578,15 @@
     <a href="Online Games.html" class="game-link-trigger">🎮 Online Games</a>
     <a href="English Flashcards.html">📘 English Flashcards</a>
     <a href="Math Flashcards.html">🧮 Math Flashcards</a>
+ <a href="admin-dashboard.html" id="dashboardLink" style="display:none;">
+  🛠 Dashboard
+</a>
+<a href="#" id="logoutBtn" style="display:none;">
+  🚪 Logout
+</a>
+<a href="login.html" id="loginBtn">
+  🔐 Login
+</a>
   </nav>
 
   <!-- Mobile Icon -->
@@ -594,8 +603,16 @@
   <a href="Online Games.html" class="game-link-trigger">🎮 Online Games</a>
   <a href="English Flashcards.html">📘 English Flashcards</a>
   <a href="Math Flashcards.html">🧮 Math Flashcards</a>
+      a href="admin-dashboard.html" id="dashboardLink" style="display:none;">
+  🛠 Dashboard
+</a>
+<a href="#" id="logoutBtn" style="display:none;">
+  🚪 Logout
+</a>
+<a href="login.html" id="loginBtn">
+  🔐 Login
+</a>
 </div>
-
 <!-- ========== SIGHT WORDS FLASHCARDS SECTION ========== -->
 <div class="sightwords-section">
   <div class="heading-wrapper">
@@ -684,6 +701,71 @@
 </footer>
 
 <script>
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  let role = localStorage.getItem("role");
+
+  const dashboardLink = document.getElementById("dashboardLink");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  // حماية لو العناصر مش موجودة
+  if(!dashboardLink || !logoutBtn) return;
+
+  // إظهار حسب الدور
+  if(role === "admin"){
+    dashboardLink.style.display = "inline-block";
+  }
+
+  if(role === "admin" || role === "student"){
+    logoutBtn.style.display = "inline-block";
+  }
+
+  // Logout
+  logoutBtn.onclick = () => {
+    localStorage.removeItem("role");
+    window.location.href = "login.html";
+  };
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const role = localStorage.getItem("role");
+
+if(role === "admin"){
+  document.getElementById("dashboardLink").style.display = "inline-flex";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Mobile menu toggle
   const hamburger = document.getElementById("hamburgerIcon");
   const mobileMenu = document.getElementById("mobileNavMenu");
